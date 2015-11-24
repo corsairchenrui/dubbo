@@ -1,4 +1,5 @@
 random=com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance
+tokenfirst=com.alibaba.dubbo.rpc.cluster.loadbalance.TokenFirstLoadBalance
 roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
 leastactive=com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance
 consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance

@@ -39,6 +39,11 @@
 				<xsd:documentation><![CDATA[ The method load balance. ]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
+		<xsd:attribute name="token" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The token to match invokers. Available in tokenfirst loadbalance strategy.]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
 		<xsd:attribute name="async" type="xsd:string" use="optional" default="false">
 			<xsd:annotation>
 				<xsd:documentation><![CDATA[ The method does async. ]]></xsd:documentation>
@@ -1039,6 +1044,11 @@
 				<xsd:attribute name="ref" type="xsd:string" use="optional">
 					<xsd:annotation>
 						<xsd:documentation><![CDATA[ The service implementation instance bean id. ]]></xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="token" type="xsd:string" use="optional">
+					<xsd:annotation>
+						<xsd:documentation><![CDATA[ The token for consumers to match. Available in tokenfirst loadbalance strategy.]]></xsd:documentation>
 					</xsd:annotation>
 				</xsd:attribute>
 				<xsd:attribute name="class" type="xsd:string" use="optional">
