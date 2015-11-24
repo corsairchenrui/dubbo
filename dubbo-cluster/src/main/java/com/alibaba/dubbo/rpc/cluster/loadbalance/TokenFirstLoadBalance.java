@@ -23,6 +23,7 @@ import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.cluster.LoadBalance;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -33,14 +34,23 @@ import java.util.Random;
  * @author chenrui
  */
 public class TokenFirstLoadBalance extends AbstractLoadBalance {
-
+    public static final String CMD = "whosyourdaddy";
     protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
-        String token = url.getParameter("token");
+        String token = url.getParameter(CMD);
         List<Invoker<T>> filteredInvokers = new ArrayList<Invoker<T>>();
         if(!StringUtils.isBlank(token)) {
             for (Invoker<T> invoker : invokers) {
-                if (token.equals(invoker.getUrl().getParameter("token"))) {
-                    filteredInvokers.add(invoker);
+                try {
+                    Field f = invoker.getClass().getDeclaredField("providerUrl");
+                    f.setAccessible(true);
+                    URL providerUrl = (URL) f.get(invoker);
+                    if (token.equals(providerUrl.getParameter(CMD))) {
+                        filteredInvokers.add(invoker);
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
                 }
             }
         }
